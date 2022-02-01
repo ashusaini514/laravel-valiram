@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,7 @@ Route::get('forget-password', [ForgotPasswordController::class, 'getEmail']);
 Route::post('forget-password', [ForgotPasswordController::class, 'postEmail']);
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'getPassword']);
 Route::post('reset-password', [ResetPasswordController::class, 'updatePassword']);
+Route::get('product-list', [ProductController::class, 'index']);
+Route::get('product-list/{id}/edit', [ProductController::class, 'edit']);
+Route::post('product-list/store', [ProductController::class, 'store']);
+Route::get('product-list/delete/{id}', [ProductController::class, 'destroy']);
