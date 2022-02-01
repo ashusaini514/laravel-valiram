@@ -180,34 +180,33 @@ $(document).ready(function() {
 	});
 
     
-    $('body').on('click', '#delete-selected-products', function() {
-	
+    $('body').on('click', '#delete-selected-products', function(e) {
+		e.preventDefault();
        var selectedcheckboxes =  document.querySelectorAll("#laravel_datatable input:checked");
-       //console.log(selectedcheckboxes);
-      var checkboxary = [];
+       var checkboxary = [];
        selectedcheckboxes.forEach(function(singleselect) {
           var checkboxclass =  $(singleselect).attr('class');
-          var  checkboxid = checkboxclass.substr(14, 1);
-          checkboxary.push(checkboxid);
+		  var arr = checkboxclass.split("_");
+          checkboxary.push(arr[1]);
          
         });
           var checkboxstr = JSON.stringify(checkboxary);
-          console.log(checkboxstr);
-
-        //calling ajax
-        $.ajax({
-				type: "post",
-				url: SITEURL + "product-list/deleteselected/",
-                data :checkboxstr,
-				success: function(data) {
-                    console.log(data);
-					var oTable = $('#laravel_datatable').dataTable();
-					oTable.fnDraw(false);
-				},
-				error: function(data) {
-					console.log('Error:', data);
-				}
+		if(confirm("Are You sure want to delete selected products !")) {
+			$.ajax({
+					type: "POST",
+					url: SITEURL + "product-list/deleteSelected",
+					data : {
+						'ids' : checkboxary
+					},
+					success: function(data) {
+						var oTable = $('#laravel_datatable').dataTable();
+						oTable.fnDraw(false);
+					},
+					error: function(data) {
+						console.log('Error:', data);
+					}
 			});
+		}
 		
 	});
 

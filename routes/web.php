@@ -17,7 +17,7 @@ use App\Http\Controllers\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', [LoginController::class, 'login']);
 Route::get('register', [RegisterController::class, 'register']);
 Route::post('register', [RegisterController::class, 'store'])->name('register');
 Route::get('login', [LoginController::class, 'login']);
@@ -32,4 +32,4 @@ Route::get('product-list', [ProductController::class, 'index']);
 Route::get('product-list/{id}/edit', [ProductController::class, 'edit']);
 Route::post('product-list/store', [ProductController::class, 'store']);
 Route::get('product-list/delete/{id}', [ProductController::class, 'destroy']);
-Route::post('product-list/deleteselected/', [ProductController::class, 'DeleteSelected']);
+Route::post('product-list/deleteSelected', [ProductController::class, 'deleteSelected']);

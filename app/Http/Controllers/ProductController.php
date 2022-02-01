@@ -67,8 +67,9 @@ class ProductController extends Controller
 
     public function deleteSelected(Request $request)
     {
-       echo "hlo";
-     echo json_decode($request->checkboxstr);
-           
+        if(!empty($request->ids)){
+            Product::whereIn('id',$request->ids)->delete();
+            return response()->json(['status'=>true,'message'=>"Product deleted successfully."]);
+        }  
     }
 }
