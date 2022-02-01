@@ -190,22 +190,24 @@ $(document).ready(function() {
           checkboxary.push(arr[1]);
          
         });
-          var checkboxstr = JSON.stringify(checkboxary);
-		if(confirm("Are You sure want to delete selected products !")) {
-			$.ajax({
-					type: "POST",
-					url: SITEURL + "product-list/deleteSelected",
-					data : {
-						'ids' : checkboxary
-					},
-					success: function(data) {
-						var oTable = $('#laravel_datatable').dataTable();
-						oTable.fnDraw(false);
-					},
-					error: function(data) {
-						console.log('Error:', data);
-					}
-			});
+		if(checkboxary.length > 0){
+            var checkboxstr = JSON.stringify(checkboxary);
+			if(confirm("Are You sure want to delete selected products !")) {
+				$.ajax({
+						type: "POST",
+						url: SITEURL + "product-list/deleteSelected",
+						data : {
+							'ids' : checkboxary
+						},
+						success: function(data) {
+							var oTable = $('#laravel_datatable').dataTable();
+							oTable.fnDraw(false);
+						},
+						error: function(data) {
+							console.log('Error:', data);
+						}
+				});
+			}
 		}
 		
 	});

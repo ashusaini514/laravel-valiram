@@ -23,7 +23,7 @@ Route::post('register', [RegisterController::class, 'store'])->name('register');
 Route::get('login', [LoginController::class, 'login']);
 Route::post('login', [LoginController::class, 'store'])->name('login');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('home', [LoginController::class, 'home'])->name('home');
+Route::get('home', [ProductController::class, 'index'])->name('home');
 Route::get('forget-password', [ForgotPasswordController::class, 'getEmail']);
 Route::post('forget-password', [ForgotPasswordController::class, 'postEmail']);
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'getPassword']);
