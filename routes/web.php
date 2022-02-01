@@ -32,3 +32,4 @@ Route::get('product-list', [ProductController::class, 'index']);
 Route::get('product-list/{id}/edit', [ProductController::class, 'edit']);
 Route::post('product-list/store', [ProductController::class, 'store']);
 Route::get('product-list/delete/{id}', [ProductController::class, 'destroy']);
+Route::post('product-list/deleteselected/', [ProductController::class, 'DeleteSelected']);

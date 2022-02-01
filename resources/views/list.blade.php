@@ -14,7 +14,9 @@
 </head>
 
 <body>
-	<div class="container"> <a href="javascript:void(0)" class="btn btn-info ml-3" style="margin-top:20px;" id="create-new-product">Add New</a>
+	<div class="container">
+         <a href="javascript:void(0)" class="btn btn-info ml-3" style="margin-top:20px;" id="create-new-product">Add New</a>
+         <a href="javascript:void(0)" class="btn btn-info ml-3" style="margin-top:20px;" id="delete-selected-products">Delete Selected</a>
 		<br>
 		<br></br>
 		<br>
@@ -176,6 +178,39 @@ $(document).ready(function() {
 			});
 		}
 	});
+
+    
+    $('body').on('click', '#delete-selected-products', function() {
+	
+       var selectedcheckboxes =  document.querySelectorAll("#laravel_datatable input:checked");
+       //console.log(selectedcheckboxes);
+      var checkboxary = [];
+       selectedcheckboxes.forEach(function(singleselect) {
+          var checkboxclass =  $(singleselect).attr('class');
+          var  checkboxid = checkboxclass.substr(14, 1);
+          checkboxary.push(checkboxid);
+         
+        });
+          var checkboxstr = JSON.stringify(checkboxary);
+          console.log(checkboxstr);
+
+        //calling ajax
+        $.ajax({
+				type: "post",
+				url: SITEURL + "product-list/deleteselected/",
+                data :checkboxstr,
+				success: function(data) {
+                    console.log(data);
+					var oTable = $('#laravel_datatable').dataTable();
+					oTable.fnDraw(false);
+				},
+				error: function(data) {
+					console.log('Error:', data);
+				}
+			});
+		
+	});
+
 });
 $('body').on('submit', '#productForm', function(e) {
 	e.preventDefault();

@@ -14,6 +14,7 @@ class ProductController extends Controller
     {
         if(request()->ajax()) {
             return datatables()->of(Product::select('*'))
+            ->addColumn('select', 'multidelete')
             ->addColumn('action', 'action')
             ->addColumn('image', 'image')
             ->rawColumns(['action','image'])
@@ -62,5 +63,12 @@ class ProductController extends Controller
         $product = Product::where('id',$id)->delete();
     
         return Response::json($product);
+    }
+
+    public function deleteSelected(Request $request)
+    {
+       echo "hlo";
+     echo json_decode($request->checkboxstr);
+           
     }
 }
